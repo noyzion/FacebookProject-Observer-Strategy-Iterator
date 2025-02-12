@@ -1,4 +1,5 @@
-﻿using CefSharp.DevTools.IndexedDB;
+﻿using BasicFacebookFeatures.BasicFacebookFeatures;
+using CefSharp.DevTools.IndexedDB;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
@@ -24,219 +25,61 @@ namespace BasicFacebookFeatures
         {
             r_FacebookLogic = i_FacebookLogic;
         }
-        public void FetchGroups(ListBox i_DataListBox)
+        private void fetchData<T>(Func<FacebookCollection<T>> i_FetchMethod, ListBox i_DataListBox, string i_DisplayMember, string i_ErrorMessage)
         {
-            Thread fetchGroupsThread = new Thread(() =>
+            Thread fetchThread = new Thread(() =>
             {
                 try
                 {
                     lock (r_FetchLock)
                     {
-                        FacebookObjectCollection<Group> groups = r_FacebookLogic.FetchGroups();
+                        FacebookCollection<T> items = i_FetchMethod.Invoke();
 
                         i_DataListBox.Invoke(new Action(() =>
                         {
                             i_DataListBox.DataSource = null;
                             i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = "Name";
-                            foreach (var group in groups)
+                            i_DataListBox.DisplayMember = i_DisplayMember;
+
+                            foreach (var item in items)
                             {
-                                i_DataListBox.Items.Add(group);
+                                i_DataListBox.Items.Add(item);
                             }
 
                             if (i_DataListBox.Items.Count == 0)
                             {
-                                MessageBox.Show("No groups to retrieve :(");
+                                MessageBox.Show(i_ErrorMessage);
                             }
                         }));
                     }
                 }
                 catch (Exception ex)
                 {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching groups: {ex.Message}")));
+                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching data: {ex.Message}")));
                 }
             });
 
-            fetchGroupsThread.Start();
+            fetchThread.Start();
         }
-        public void FetchAlbums(ListBox i_DataListBox)
-        {
-            Thread fetchAlbumsThread = new Thread(() =>
-            {
-                try
-                {
-                    lock (r_FetchLock)
-                    {
-                        FacebookObjectCollection<Album> albums = r_FacebookLogic.FetchAlbums();
 
-                        i_DataListBox.Invoke(new Action(() =>
-                        {
-                            i_DataListBox.DataSource = null;
-                            i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = "Name";
-                            foreach (var album in albums)
-                            {
-                                i_DataListBox.Items.Add(album);
-                            }
+        public void FetchGroups(ListBox i_DataListBox) =>
+            fetchData(() => r_FacebookLogic.FetchGroups(), i_DataListBox, "Name", "No groups to retrieve :(");
 
-                            if (i_DataListBox.Items.Count == 0)
-                            {
-                                MessageBox.Show("No albums to retrieve :(");
-                            }
-                        }));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching albums: {ex.Message}")));
-                }
-            });
+        public void FetchAlbums(ListBox i_DataListBox) =>
+            fetchData(() => r_FacebookLogic.FetchAlbums(), i_DataListBox, "Name", "No albums to retrieve :(");
 
-            fetchAlbumsThread.Start();
-        }
-        public void FetchFriends(ListBox i_DataListBox)
-        {
-            Thread fetchFriendsThread = new Thread(() =>
-            {
-                try
-                {
-                    lock (r_FetchLock)
-                    {
-                        FacebookObjectCollection<User> friends = r_FacebookLogic.FetchFriends();
+        public void FetchFriends(ListBox i_DataListBox) =>
+            fetchData(() => r_FacebookLogic.FetchFriends(), i_DataListBox, "Name", "No friends to retrieve :(");
 
-                        i_DataListBox.Invoke(new Action(() =>
-                        {
-                            i_DataListBox.DataSource = null;
-                            i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = "Name";
-                            foreach (var friend in friends)
-                            {
-                                i_DataListBox.Items.Add(friend);
-                            }
+        public void FetchPosts(ListBox i_DataListBox) =>
+            fetchData(() => r_FacebookLogic.FetchPosts(), i_DataListBox, "UpdateTime", "No posts to retrieve :(");
 
-                            if (i_DataListBox.Items.Count == 0)
-                            {
-                                MessageBox.Show("No friends to retrieve :(");
-                            }
-                        }));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching friends: {ex.Message}")));
-                }
-            });
+        public void FetchLikedPages(ListBox i_DataListBox) =>
+            fetchData(() => r_FacebookLogic.FetchLikedPages(), i_DataListBox, "Name", "No liked pages to retrieve :(");
 
-            fetchFriendsThread.Start();
-        }
-        public void FetchPosts(ListBox i_DataListBox)
-        {
-            Thread fetchPostsThread = new Thread(() =>
-            {
-                try
-                {
-                    lock (r_FetchLock)
-                    {
-                        FacebookObjectCollection<Post> posts = r_FacebookLogic.FetchPosts();
+        public void FetchEvents(ListBox i_DataListBox) =>
+            fetchData(() => r_FacebookLogic.FetchEvents(), i_DataListBox, "Name", "No events to retrieve :(");
 
-                        i_DataListBox.Invoke(new Action(() =>
-                        {
-                            i_DataListBox.DataSource = null;
-                            i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = "UpdateTime";
-                            foreach (var post in posts)
-                            {
-                                if (post.Message != null || post.PictureURL != null)
-                                {
-                                    i_DataListBox.Items.Add(post);
-                                }
-                            }
-
-                            if (i_DataListBox.Items.Count == 0)
-                            {
-                                MessageBox.Show("No posts to retrieve :(");
-                            }
-                        }));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching posts: {ex.Message}")));
-                }
-            });
-
-            fetchPostsThread.Start();
-        }
-        public void FetchLikedPages(ListBox i_DataListBox)
-        {
-            Thread fetchLikedPagesThread = new Thread(() =>
-            {
-                try
-                {
-                    lock (r_FetchLock)
-                    {
-                        FacebookObjectCollection<Page> likedPages = r_FacebookLogic.FetchLikedPages();
-
-                        i_DataListBox.Invoke(new Action(() =>
-                        {
-                            i_DataListBox.DataSource = null;
-                            i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = "Name";
-                            foreach (var page in likedPages)
-                            {
-                                i_DataListBox.Items.Add(page);
-                            }
-
-                            if (i_DataListBox.Items.Count == 0)
-                            {
-                                MessageBox.Show("No liked pages to retrieve :(");
-                            }
-                        }));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching liked pages: {ex.Message}")));
-                }
-            });
-
-            fetchLikedPagesThread.Start();
-        }
-        public void FetchEvents(ListBox i_DataListBox)
-        {
-            Thread fetchEventsThread = new Thread(() =>
-            {
-                try
-                {
-                    lock (r_FetchLock)
-                    {
-                        FacebookObjectCollection<Event> events = r_FacebookLogic.FetchEvents();
-
-                        i_DataListBox.Invoke(new Action(() =>
-                        {
-                            i_DataListBox.DataSource = null;
-                            i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = "Name";
-                            foreach (var fbEvent in events)
-                            {
-                                i_DataListBox.Items.Add(fbEvent);
-                            }
-
-                            if (i_DataListBox.Items.Count == 0)
-                            {
-                                MessageBox.Show("No events to retrieve :(");
-                            }
-                        }));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching events: {ex.Message}")));
-                }
-            });
-
-            fetchEventsThread.Start();
-        }
         public void PostStatus(string i_Message, TextBox i_StatusTextBox)
         {
             Thread postThread = new Thread(() =>

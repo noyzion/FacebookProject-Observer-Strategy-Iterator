@@ -854,10 +854,10 @@ namespace BasicFacebookFeatures
             this.comboBoxCategory.Enabled = false;
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Items.AddRange(new object[] {
-            BasicFacebookFeatures.EWishlistCategories.Food,
-            BasicFacebookFeatures.EWishlistCategories.Pets,
-            BasicFacebookFeatures.EWishlistCategories.Activities,
-            BasicFacebookFeatures.EWishlistCategories.Shopping});
+            global::BasicFacebookFeatures.EWishlistCategories.Food,
+            global::BasicFacebookFeatures.EWishlistCategories.Pets,
+            global::BasicFacebookFeatures.EWishlistCategories.Activities,
+           global:: BasicFacebookFeatures.EWishlistCategories.Shopping});
             this.comboBoxCategory.Location = new System.Drawing.Point(539, 90);
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(121, 30);

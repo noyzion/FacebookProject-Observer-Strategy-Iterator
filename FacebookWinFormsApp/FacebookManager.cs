@@ -1,4 +1,5 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using BasicFacebookFeatures.BasicFacebookFeatures;
+using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 
@@ -12,29 +13,31 @@ namespace BasicFacebookFeatures
         {
             r_LoginResult = i_LoginResult;
         }
-        public FacebookObjectCollection<Group> FetchGroups()
+
+
+        public FacebookCollection<Group> FetchGroups()
         {
-            return r_LoginResult.LoggedInUser.Groups;
+            return new FacebookCollection<Group>(new List<Group>(r_LoginResult.LoggedInUser.Groups));
         }
-        public FacebookObjectCollection<Album> FetchAlbums()
+        public FacebookCollection<Album> FetchAlbums()
         {
-            return r_LoginResult.LoggedInUser.Albums;
+            return new FacebookCollection<Album>(new List<Album>(r_LoginResult.LoggedInUser.Albums));
         }
-        public FacebookObjectCollection<User> FetchFriends()
+        public FacebookCollection<User> FetchFriends()
         {
-            return r_LoginResult.LoggedInUser.Friends;
+            return new FacebookCollection<User>(new List<User>(r_LoginResult.LoggedInUser.Friends));
         }
-        public FacebookObjectCollection<Post> FetchPosts()
+        public FacebookCollection<Post> FetchPosts()
         {
-            return r_LoginResult.LoggedInUser.Posts;
+            return new FacebookCollection<Post>(new List<Post>(r_LoginResult.LoggedInUser.Posts));
         }
-        public FacebookObjectCollection<Page> FetchLikedPages()
+        public FacebookCollection<Page> FetchLikedPages()
         {
-            return r_LoginResult.LoggedInUser.LikedPages;
+            return new FacebookCollection<Page>(new List<Page>(r_LoginResult.LoggedInUser.LikedPages));
         }
-        public FacebookObjectCollection<Event> FetchEvents()
+        public FacebookCollection<Event> FetchEvents()
         {
-            return r_LoginResult.LoggedInUser.Events;
+            return new FacebookCollection<Event>(new List<Event>(r_LoginResult.LoggedInUser.Events));
         }
         public Status PostStatus(string i_Message)
         {

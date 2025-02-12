@@ -91,6 +91,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacebookCollection.cs" />
+    <Compile Include="FacebookEnumerator.cs" />
     <Compile Include="WorkoutFeature\AddWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
