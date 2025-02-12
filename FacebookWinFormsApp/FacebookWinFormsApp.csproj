@@ -110,12 +110,9 @@
     <Compile Include="WorkoutFeature\InviteFriendsForm.Designer.cs">
       <DependentUpon>InviteFriendsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkoutFeature\IWorkoutBuilder.cs" />
     <Compile Include="WishlistFeature\WishlistFacade.cs" />
     <Compile Include="WishlistFeature\WishListItem.cs" />
     <Compile Include="WishlistFeature\WishlistManagerUI.cs" />
-    <Compile Include="WorkoutFeature\WorkoutBuilder.cs" />
-    <Compile Include="WorkoutFeature\WorkoutComposer.cs" />
     <Compile Include="WorkoutFeature\WorkoutFacade.cs" />
     <Compile Include="WorkoutFeature\WorkoutManager.cs" />
     <Compile Include="WishlistFeature\EWishlistCategories.cs" />

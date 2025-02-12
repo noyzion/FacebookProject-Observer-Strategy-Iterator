@@ -41,18 +41,15 @@ namespace BasicFacebookFeatures
         {
             buttonAddWorkout.Enabled = m_DurationChanged && m_CaloriesChanged && m_DateTimeChanged && m_CategoryChanged;
         }
+
         private void buttonAddWorkout_Click(object sender, EventArgs e)
         {
             try
             {
-                decimal duration = numericUpDownDuration.Value;
-                string category = comboBoxWorkoutCategory.Text;
-                DateTime date = dateTimePickerWorkout.Value;
-                decimal calories = numericUpDownCalories.Value;
-                WorkoutComposer composer = new WorkoutComposer();
-                Workout workout = composer.ComposeWorkout(duration, category, date, calories);
+                Workout newWorkout = new Workout(numericUpDownDuration.Value, comboBoxWorkoutCategory.Text,
+                                                            dateTimePickerWorkout.Value, numericUpDownCalories.Value);
 
-                r_WorkoutFacade.AddWorkout(workout);
+                r_WorkoutFacade.AddWorkout(newWorkout);
                 r_WorkoutFacade.FetchWorkoutData();
                 MessageBox.Show("Workout saved successfully!");
                 this.Close();
