@@ -1,4 +1,4 @@
-﻿namespace BasicFacebookFeatures.WorkoutFeature
+﻿namespace BasicFacebookFeatures
 {
     partial class InviteFriendsForm
     {

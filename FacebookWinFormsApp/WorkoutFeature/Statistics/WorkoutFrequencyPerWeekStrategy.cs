@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System;
 
-public class WorkoutFrequencyPerWeekStrategy : IWorkoutStatisticStrategy
+namespace BasicFacebookFeatures
 {
-    public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
+    public class WorkoutFrequencyPerWeekStrategy : IWorkoutStatisticStrategy
     {
-        Dictionary<int, int> workoutCountPerWeek = new Dictionary<int, int>();
-
-        foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+        public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
         {
-            if (row.Cells["Date"]?.Value != null)
-            {
-                DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
-                int week = System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear
-                          (workoutDate, System.Globalization.CalendarWeekRule.FirstFullWeek, DayOfWeek.Sunday);
+            Dictionary<int, int> workoutCountPerWeek = new Dictionary<int, int>();
 
-                if (workoutCountPerWeek.ContainsKey(week))
+            foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+            {
+                if (row.Cells["Date"]?.Value != null)
                 {
-                    workoutCountPerWeek[week]++;
-                }
-                else
-                {
-                    workoutCountPerWeek[week] = 1;
+                    DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
+                    int week = System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear
+                              (workoutDate, System.Globalization.CalendarWeekRule.FirstFullWeek, DayOfWeek.Sunday);
+
+                    if (workoutCountPerWeek.ContainsKey(week))
+                    {
+                        workoutCountPerWeek[week]++;
+                    }
+                    else
+                    {
+                        workoutCountPerWeek[week] = 1;
+                    }
                 }
             }
+            return workoutCountPerWeek;
         }
-        return workoutCountPerWeek;
     }
 }

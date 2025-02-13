@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System;
 
-public class CaloriesPerMonthStrategy : IWorkoutStatisticStrategy
+namespace BasicFacebookFeatures
 {
-    public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
+    public class CaloriesPerMonthStrategy : IWorkoutStatisticStrategy
     {
-        Dictionary<int, int> caloriesPerMonth = new Dictionary<int, int>();
-
-        foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+        public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
         {
-            if (row.Cells["Date"]?.Value != null && row.Cells["Calories"]?.Value != null)
-            {
-                DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
-                int month = workoutDate.Month;
-                int calories = Convert.ToInt32(row.Cells["Calories"].Value);
+            Dictionary<int, int> caloriesPerMonth = new Dictionary<int, int>();
 
-                if (caloriesPerMonth.ContainsKey(month))
+            foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+            {
+                if (row.Cells["Date"]?.Value != null && row.Cells["Calories"]?.Value != null)
                 {
-                    caloriesPerMonth[month] += calories;
-                }
-                else
-                {
-                    caloriesPerMonth[month] = calories;
+                    DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
+                    int month = workoutDate.Month;
+                    int calories = Convert.ToInt32(row.Cells["Calories"].Value);
+
+                    if (caloriesPerMonth.ContainsKey(month))
+                    {
+                        caloriesPerMonth[month] += calories;
+                    }
+                    else
+                    {
+                        caloriesPerMonth[month] = calories;
+                    }
                 }
             }
+            return caloriesPerMonth;
         }
-        return caloriesPerMonth;
     }
 }

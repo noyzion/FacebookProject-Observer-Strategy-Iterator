@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System;
 
-public class WorkoutCountPerMonthStrategy : IWorkoutStatisticStrategy
+namespace BasicFacebookFeatures
 {
-    public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
+    public class WorkoutCountPerMonthStrategy : IWorkoutStatisticStrategy
     {
-        Dictionary<int, int> workoutCountPerMonth = new Dictionary<int, int>();
-
-        foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+        public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
         {
-            if (row.Cells["Date"]?.Value != null)
-            {
-                DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
-                int month = workoutDate.Month;
+            Dictionary<int, int> workoutCountPerMonth = new Dictionary<int, int>();
 
-                if (workoutCountPerMonth.ContainsKey(month))
+            foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+            {
+                if (row.Cells["Date"]?.Value != null)
                 {
-                    workoutCountPerMonth[month]++;
-                }
-                else
-                {
-                    workoutCountPerMonth[month] = 1;
+                    DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
+                    int month = workoutDate.Month;
+
+                    if (workoutCountPerMonth.ContainsKey(month))
+                    {
+                        workoutCountPerMonth[month]++;
+                    }
+                    else
+                    {
+                        workoutCountPerMonth[month] = 1;
+                    }
                 }
             }
+            return workoutCountPerMonth;
         }
-        return workoutCountPerMonth;
     }
 }

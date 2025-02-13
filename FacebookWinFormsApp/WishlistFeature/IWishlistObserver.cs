@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicFacebookFeatures.WishlistFeature
+namespace BasicFacebookFeatures
 {
     public interface IWishlistObserver
     {
-        void Update(List<WishListItem> i_Wishlist);
+        void Update(List<CategoryListWrapper> i_WishlistValues);
     }
-
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
+using System.Linq;
 using System.Windows.Forms;
-using BasicFacebookFeatures.WishlistFeature;
-using BasicFacebookFeatures.WorkoutFeature;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
@@ -40,7 +38,6 @@ namespace BasicFacebookFeatures
             WishlistProgressTracker progressTracker = new WishlistProgressTracker(progressBarWishlist);
             WishlistNotifier wishlistNotifier = new WishlistNotifier();
 
-            // Attach observers
             r_WishlistFacade.WishlistManager.AddObserver(progressTracker);
             r_WishlistFacade.WishlistManager.AddObserver(wishlistNotifier);
         }
@@ -57,7 +54,6 @@ namespace BasicFacebookFeatures
                 r_AppSettings.WorkoutFacade = new WorkoutFacade();
                 r_AppSettings.WorkoutManager = r_AppSettings.WorkoutFacade.WorkoutManager;
             }
-
         }
         private void pictureBox_MouseEnter(object sender, EventArgs e)
         {
@@ -112,6 +108,7 @@ namespace BasicFacebookFeatures
                 PopulateUIFromFacebookData();
             }
         }
+
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             if (m_LoginResult == null || string.IsNullOrEmpty(m_LoginResult.AccessToken))
@@ -482,7 +479,6 @@ namespace BasicFacebookFeatures
                 }
 
                 WishListItem newItem = r_WishlistFacade.AddWish(category, itemName, i_PhotoURL);
-                r_WishlistFacade.WishlistManager.AddWishListItem(newItem);
                 r_WishlistFacade.UpdateUI(checkedListBoxFood, checkedListBoxPets,
                                         checkedListBoxActivities, checkedListBoxShopping, category, newItem);
                 textBoxName.Clear();
@@ -532,7 +528,7 @@ namespace BasicFacebookFeatures
                 else
                 {
                     wishListItemChecked.Checked = true;
-                    r_WishlistFacade.WishlistManager.MarkItemAsCompleted(itemName);
+                    r_WishlistFacade.WishlistManager.MarkItemAsCompleted(i_Category, itemName);
                 }
             }
         }

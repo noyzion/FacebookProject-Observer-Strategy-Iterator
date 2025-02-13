@@ -1,21 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures.WishlistFeature
+namespace BasicFacebookFeatures
 {
     public class WishlistNotifier : IWishlistObserver
     {
-        public void Update(List<WishListItem> i_Wishlist)
-        {
-            var completedItems = i_Wishlist.Where(item => item.Checked).ToList();
-            var totalItems = i_Wishlist.Count;
+        private bool m_CompletionMessageShown = false; 
 
-            string message = $"Wishlist updated: {completedItems.Count} of {totalItems} items completed.";
-            MessageBox.Show(message, "Wishlist Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        public void Update(List<CategoryListWrapper> i_WishlistValues)
+        {
+            int totalItems = i_WishlistValues.Sum(category => category.ListOfWishlists.Count);
+            int completedItems = i_WishlistValues.Sum(category => category.ListOfWishlists.Count(item => item.Checked));
+
+            if (totalItems > 0 && completedItems == totalItems && !m_CompletionMessageShown)
+            {
+                MessageBox.Show("Congratulations! You've completed your entire wishlist!", "Wishlist Complete",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                m_CompletionMessageShown = true; 
+            }
+            else if (completedItems < totalItems)
+            {
+                m_CompletionMessageShown = false;
+            }
         }
     }
 }

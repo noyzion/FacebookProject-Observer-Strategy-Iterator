@@ -1,5 +1,4 @@
 ﻿// WishlistLogic.cs
-using BasicFacebookFeatures.WishlistFeature;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +8,12 @@ namespace BasicFacebookFeatures
 {
     public class WishlistManager : IWishlistManager
     {
-        private List<IWishlistObserver> m_Observers = new List<IWishlistObserver>();
-        private List<WishListItem> m_WishlistItems = new List<WishListItem>();
+        private readonly List<IWishlistObserver> r_Observers;
         public List<CategoryListWrapper> WishlistValues { get; set; }
         public WishlistManager()
         {
             WishlistValues = new List<CategoryListWrapper>();
+            r_Observers = new List<IWishlistObserver>();
         }
         public WishListItem AddWishToWishlistValues(string i_Category, string i_ItemName, string i_PhotoUrl)
         {
@@ -36,6 +35,8 @@ namespace BasicFacebookFeatures
                     throw new Exception("You can't add two items with the same name to the same list!");
                 }
             }
+
+            NotifyObservers();
 
             return newItem;
         }
@@ -76,6 +77,7 @@ namespace BasicFacebookFeatures
             }
 
             items = WishlistValues.FirstOrDefault(kvp => kvp.KeyCategory == i_Category)?.ListOfWishlists ?? new List<WishListItem>();
+            NotifyObservers();
 
             return items;
         }
@@ -86,33 +88,30 @@ namespace BasicFacebookFeatures
                 ?.ListOfWishlists
                 .FirstOrDefault(item => item.Text.Equals(i_ItemName, StringComparison.OrdinalIgnoreCase));
         }
+
         public void AddObserver(IWishlistObserver i_Observer)
         {
-            m_Observers.Add(i_Observer);
+            r_Observers.Add(i_Observer);
         }
 
         public void RemoveObserver(IWishlistObserver i_Observer)
         {
-            m_Observers.Remove(i_Observer);
+            r_Observers.Remove(i_Observer);
         }
 
         private void NotifyObservers()
         {
-            foreach (var observer in m_Observers)
+            foreach (var observer in r_Observers)
             {
-                observer.Update(m_WishlistItems);
+                observer.Update(WishlistValues);
             }
         }
-
-        public void AddWishListItem(WishListItem i_Item)
+        public void MarkItemAsCompleted(EWishlistCategories i_Category, string i_ItemName)
         {
-            m_WishlistItems.Add(i_Item);
-            NotifyObservers();
-        }
+            string categoryName = i_Category.ToString();
+            var category = WishlistValues.FirstOrDefault(kvp => kvp.KeyCategory.ToLower() == categoryName);
+            var item = category?.ListOfWishlists.FirstOrDefault(i => i.Text == i_ItemName);
 
-        public void MarkItemAsCompleted(string i_ItemName)
-        {
-            var item = m_WishlistItems.FirstOrDefault(i => i.Text == i_ItemName);
             if (item != null)
             {
                 item.Checked = true;

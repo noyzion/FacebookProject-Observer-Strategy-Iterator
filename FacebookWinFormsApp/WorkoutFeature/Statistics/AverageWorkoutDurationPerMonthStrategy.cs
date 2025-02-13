@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System;
 using System.Linq;
-
-public class AverageWorkoutDurationPerMonthStrategy : IWorkoutStatisticStrategy
+namespace BasicFacebookFeatures
 {
-    public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
+    public class AverageWorkoutDurationPerMonthStrategy : IWorkoutStatisticStrategy
     {
-        Dictionary<int, List<int>> durationPerMonth = new Dictionary<int, List<int>>();
-        Dictionary<int, int> avgDurationPerMonth = new Dictionary<int, int>();
-
-        foreach (DataGridViewRow row in i_WorkoutTable.Rows)
+        public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
         {
-            if (row.Cells["Date"]?.Value != null && row.Cells["Duration"]?.Value != null)
+            Dictionary<int, List<int>> durationPerMonth = new Dictionary<int, List<int>>();
+            Dictionary<int, int> avgDurationPerMonth = new Dictionary<int, int>();
+
+            foreach (DataGridViewRow row in i_WorkoutTable.Rows)
             {
-                DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
-                int month = workoutDate.Month;
-                int duration = Convert.ToInt32(row.Cells["Duration"].Value);
-
-                if (!durationPerMonth.ContainsKey(month))
+                if (row.Cells["Date"]?.Value != null && row.Cells["Duration"]?.Value != null)
                 {
-                    durationPerMonth[month] = new List<int>();
+                    DateTime workoutDate = Convert.ToDateTime(row.Cells["Date"].Value);
+                    int month = workoutDate.Month;
+                    int duration = Convert.ToInt32(row.Cells["Duration"].Value);
+
+                    if (!durationPerMonth.ContainsKey(month))
+                    {
+                        durationPerMonth[month] = new List<int>();
+                    }
+                    durationPerMonth[month].Add(duration);
                 }
-                durationPerMonth[month].Add(duration);
             }
-        }
 
-        foreach (var entry in durationPerMonth)
-        {
-            avgDurationPerMonth[entry.Key] = (int)entry.Value.Average();
-        }
+            foreach (var entry in durationPerMonth)
+            {
+                avgDurationPerMonth[entry.Key] = (int)entry.Value.Average();
+            }
 
-        return avgDurationPerMonth;
+            return avgDurationPerMonth;
+        }
     }
 }

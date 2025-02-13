@@ -651,7 +651,7 @@ namespace BasicFacebookFeatures
             // 
             // progressBarWishlist
             // 
-            this.progressBarWishlist.Location = new System.Drawing.Point(364, 121);
+            this.progressBarWishlist.Location = new System.Drawing.Point(364, 130);
             this.progressBarWishlist.Name = "progressBarWishlist";
             this.progressBarWishlist.Size = new System.Drawing.Size(542, 23);
             this.progressBarWishlist.TabIndex = 26;
@@ -724,7 +724,7 @@ namespace BasicFacebookFeatures
             // 
             this.labelActivities.AutoSize = true;
             this.labelActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelActivities.Location = new System.Drawing.Point(421, 147);
+            this.labelActivities.Location = new System.Drawing.Point(421, 161);
             this.labelActivities.Name = "labelActivities";
             this.labelActivities.Size = new System.Drawing.Size(92, 24);
             this.labelActivities.TabIndex = 11;
@@ -734,7 +734,7 @@ namespace BasicFacebookFeatures
             // 
             this.labelPets.AutoSize = true;
             this.labelPets.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPets.Location = new System.Drawing.Point(699, 147);
+            this.labelPets.Location = new System.Drawing.Point(699, 161);
             this.labelPets.Name = "labelPets";
             this.labelPets.Size = new System.Drawing.Size(50, 24);
             this.labelPets.TabIndex = 10;
@@ -744,7 +744,7 @@ namespace BasicFacebookFeatures
             // 
             this.labelShopping.AutoSize = true;
             this.labelShopping.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelShopping.Location = new System.Drawing.Point(938, 147);
+            this.labelShopping.Location = new System.Drawing.Point(938, 161);
             this.labelShopping.Name = "labelShopping";
             this.labelShopping.Size = new System.Drawing.Size(100, 24);
             this.labelShopping.TabIndex = 9;
@@ -754,7 +754,7 @@ namespace BasicFacebookFeatures
             // 
             this.labelFood.AutoSize = true;
             this.labelFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFood.Location = new System.Drawing.Point(176, 147);
+            this.labelFood.Location = new System.Drawing.Point(176, 161);
             this.labelFood.Name = "labelFood";
             this.labelFood.Size = new System.Drawing.Size(59, 24);
             this.labelFood.TabIndex = 8;

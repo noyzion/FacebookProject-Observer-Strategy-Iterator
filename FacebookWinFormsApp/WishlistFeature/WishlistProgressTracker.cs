@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System;
 using System.Windows.Forms;
+using System.Linq;
 
-namespace BasicFacebookFeatures.WishlistFeature
+namespace BasicFacebookFeatures
 {
     public class WishlistProgressTracker : IWishlistObserver
     {
@@ -16,15 +14,13 @@ namespace BasicFacebookFeatures.WishlistFeature
             m_ProgressBar = i_ProgressBar;
         }
 
-        public void Update(List<WishListItem> i_Wishlist)
+        public void Update(List<CategoryListWrapper> i_WishlistValues)
         {
-            int totalItems = i_Wishlist.Count;
-            int completedItems = i_Wishlist.Count(item => item.Checked);
-
+            int totalItems = i_WishlistValues.Sum(category => category.ListOfWishlists.Count);
+            int completedItems = i_WishlistValues.Sum(category => category.ListOfWishlists.Count(item => item.Checked));
             int progress = totalItems > 0 ? (completedItems * 100 / totalItems) : 0;
+
             m_ProgressBar.Value = progress;
-            Console.WriteLine($"Wishlist Progress Updated: {progress}%");
         }
     }
-
 }

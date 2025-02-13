@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures.WorkoutFeature
+namespace BasicFacebookFeatures
 {
     public partial class InviteFriendsForm : Form
     {
