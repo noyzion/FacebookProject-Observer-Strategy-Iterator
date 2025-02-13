@@ -6,7 +6,6 @@ using FacebookWrapper;
 
 namespace BasicFacebookFeatures
 {
-    //https://docs.google.com/document/d/1UXaie6tFDTP3LM6QzMRI4fN0GiwbZXfrhr2nOSAYoPA/edit?usp=sharing
     static class Program
     {
         [STAThread]    
