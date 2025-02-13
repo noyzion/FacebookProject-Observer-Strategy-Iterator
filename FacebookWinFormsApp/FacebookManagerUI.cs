@@ -1,5 +1,4 @@
-﻿using BasicFacebookFeatures.BasicFacebookFeatures;
-using CefSharp.DevTools.IndexedDB;
+﻿using CefSharp.DevTools.IndexedDB;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;

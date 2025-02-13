@@ -1,4 +1,4 @@
-﻿using System;
+﻿using BasicFacebookFeatures;
 
 namespace BasicFacebookFeatures
 {
@@ -228,15 +228,16 @@ namespace BasicFacebookFeatures
             this.panelStatus.Controls.Add(this.buttonAddPost);
             this.panelStatus.Controls.Add(this.buttonAddPicture);
             this.panelStatus.Controls.Add(this.textBoxStatus);
-            this.panelStatus.Location = new System.Drawing.Point(430, 563);
+            this.panelStatus.Location = new System.Drawing.Point(430, 558);
             this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(793, 85);
+            this.panelStatus.Size = new System.Drawing.Size(797, 96);
             this.panelStatus.TabIndex = 84;
+            this.panelStatus.Paint += new System.Windows.Forms.PaintEventHandler(this.panelStatus_Paint);
             // 
             // labelAddStatus
             // 
             this.labelAddStatus.AutoSize = true;
-            this.labelAddStatus.Location = new System.Drawing.Point(13, 8);
+            this.labelAddStatus.Location = new System.Drawing.Point(16, 32);
             this.labelAddStatus.Name = "labelAddStatus";
             this.labelAddStatus.Size = new System.Drawing.Size(102, 24);
             this.labelAddStatus.TabIndex = 87;
@@ -246,7 +247,7 @@ namespace BasicFacebookFeatures
             // 
             this.buttonAddVideo.BackColor = System.Drawing.Color.White;
             this.buttonAddVideo.Enabled = false;
-            this.buttonAddVideo.Location = new System.Drawing.Point(412, 50);
+            this.buttonAddVideo.Location = new System.Drawing.Point(433, 60);
             this.buttonAddVideo.Name = "buttonAddVideo";
             this.buttonAddVideo.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonAddVideo.Size = new System.Drawing.Size(136, 31);
@@ -259,7 +260,7 @@ namespace BasicFacebookFeatures
             // 
             this.buttonAddPost.BackColor = System.Drawing.Color.White;
             this.buttonAddPost.Enabled = false;
-            this.buttonAddPost.Location = new System.Drawing.Point(709, 6);
+            this.buttonAddPost.Location = new System.Drawing.Point(709, 25);
             this.buttonAddPost.Name = "buttonAddPost";
             this.buttonAddPost.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonAddPost.Size = new System.Drawing.Size(70, 31);
@@ -272,7 +273,7 @@ namespace BasicFacebookFeatures
             // 
             this.buttonAddPicture.BackColor = System.Drawing.Color.White;
             this.buttonAddPicture.Enabled = false;
-            this.buttonAddPicture.Location = new System.Drawing.Point(270, 50);
+            this.buttonAddPicture.Location = new System.Drawing.Point(291, 60);
             this.buttonAddPicture.Name = "buttonAddPicture";
             this.buttonAddPicture.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonAddPicture.Size = new System.Drawing.Size(136, 31);
@@ -284,7 +285,7 @@ namespace BasicFacebookFeatures
             // textBoxStatus
             // 
             this.textBoxStatus.Enabled = false;
-            this.textBoxStatus.Location = new System.Drawing.Point(124, 7);
+            this.textBoxStatus.Location = new System.Drawing.Point(124, 28);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.Size = new System.Drawing.Size(579, 28);
             this.textBoxStatus.TabIndex = 86;
@@ -348,7 +349,7 @@ namespace BasicFacebookFeatures
             this.dataPanel.RowCount = 2;
             this.dataPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.dataPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.dataPanel.Size = new System.Drawing.Size(785, 356);
+            this.dataPanel.Size = new System.Drawing.Size(797, 356);
             this.dataPanel.TabIndex = 72;
             // 
             // dataListBox
@@ -854,10 +855,10 @@ namespace BasicFacebookFeatures
             this.comboBoxCategory.Enabled = false;
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Items.AddRange(new object[] {
-            global::BasicFacebookFeatures.EWishlistCategories.Food,
-            global::BasicFacebookFeatures.EWishlistCategories.Pets,
-            global::BasicFacebookFeatures.EWishlistCategories.Activities,
-           global:: BasicFacebookFeatures.EWishlistCategories.Shopping});
+            BasicFacebookFeatures.EWishlistCategories.Food,
+            BasicFacebookFeatures.EWishlistCategories.Pets,
+            BasicFacebookFeatures.EWishlistCategories.Activities,
+            BasicFacebookFeatures.EWishlistCategories.Shopping});
             this.comboBoxCategory.Location = new System.Drawing.Point(539, 90);
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(121, 30);

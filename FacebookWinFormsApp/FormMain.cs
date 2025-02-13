@@ -470,7 +470,7 @@ namespace BasicFacebookFeatures
                 {
                     MessageBox.Show("Please provide both a category and item name.", "Input Error",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                     return;
                 }
 
@@ -666,6 +666,11 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void panelStatus_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

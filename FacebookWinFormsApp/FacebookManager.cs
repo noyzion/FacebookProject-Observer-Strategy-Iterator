@@ -1,5 +1,4 @@
-﻿using BasicFacebookFeatures.BasicFacebookFeatures;
-using FacebookWrapper.ObjectModel;
+﻿using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +12,6 @@ namespace BasicFacebookFeatures
         {
             r_LoginResult = i_LoginResult;
         }
-
-
         public FacebookCollection<Group> FetchGroups()
         {
             return new FacebookCollection<Group>(new List<Group>(r_LoginResult.LoggedInUser.Groups));

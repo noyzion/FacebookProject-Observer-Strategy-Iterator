@@ -91,8 +91,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WorkoutFeature\Statistics\AverageWorkoutDurationPerMonthStrategy.cs" />
+    <Compile Include="WorkoutFeature\Statistics\CaloriesPerDayStrategy.cs" />
+    <Compile Include="WorkoutFeature\Statistics\CaloriesPerMonthStrategy.cs" />
     <Compile Include="FacebookCollection.cs" />
     <Compile Include="FacebookEnumerator.cs" />
+    <Compile Include="WorkoutFeature\Statistics\IWorkoutStatisticStrategy.cs" />
+    <Compile Include="WorkoutFeature\Statistics\WorkoutCountPerMonthStrategy.cs" />
     <Compile Include="WorkoutFeature\AddWorkoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,16 +143,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatisicsForm.cs">
+    <Compile Include="WorkoutFeature\Statistics\StatisicsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StatisicsForm.Designer.cs">
+    <Compile Include="WorkoutFeature\Statistics\StatisicsForm.Designer.cs">
       <DependentUpon>StatisicsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WishlistFeature\WishlistManager.cs" />
     <Compile Include="WorkoutFeature\Workout.cs" />
     <Compile Include="WorkoutFeature\WorkoutManagerUI.cs" />
-    <EmbeddedResource Include="StatisicsForm.resx">
+    <Compile Include="WorkoutFeature\Statistics\WorkoutFrequencyPerWeekStrategy.cs" />
+    <EmbeddedResource Include="WorkoutFeature\Statistics\StatisicsForm.resx">
       <DependentUpon>StatisicsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkoutFeature\InviteFriendsForm.resx">
