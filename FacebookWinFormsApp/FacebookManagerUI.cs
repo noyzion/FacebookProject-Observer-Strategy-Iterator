@@ -24,53 +24,45 @@ namespace BasicFacebookFeatures
         {
             r_FacebookLogic = i_FacebookLogic;
         }
-        private void fetchData<T>(Func<FacebookCollection<T>> i_FetchMethod, ListBox i_DataListBox, string i_DisplayMember, string i_ErrorMessage)
+        private IEnumerable<T> fetchData<T>(Func<FacebookCollection<T>> i_FetchMethod)
         {
-            Thread fetchThread = new Thread(() =>
+            lock (r_FetchLock)
             {
-                try
+                FacebookCollection<T> items = i_FetchMethod.Invoke();
+
+                foreach (var item in items)
                 {
-                    lock (r_FetchLock)
-                    {
-                        FacebookCollection<T> items = i_FetchMethod.Invoke();
-
-                        i_DataListBox.Invoke(new Action(() =>
-                        {
-                            i_DataListBox.DataSource = null;
-                            i_DataListBox.Items.Clear();
-                            i_DataListBox.DisplayMember = i_DisplayMember;
-                            foreach (var item in items)
-                            {
-                                i_DataListBox.Items.Add(item);
-                            }
-
-                            if (i_DataListBox.Items.Count == 0)
-                            {
-                                MessageBox.Show(i_ErrorMessage);
-                            }
-                        }));
-                    }
+                    yield return item;
                 }
-                catch (Exception ex)
-                {
-                    i_DataListBox.Invoke(new Action(() => MessageBox.Show($"Error fetching data: {ex.Message}")));
-                }
-            });
-
-            fetchThread.Start();
+            }
         }
-        public void FetchGroups(ListBox i_DataListBox) =>
-            fetchData(() => r_FacebookLogic.FetchGroups(), i_DataListBox, "Name", "No groups to retrieve :(");
-        public void FetchAlbums(ListBox i_DataListBox) =>
-            fetchData(() => r_FacebookLogic.FetchAlbums(), i_DataListBox, "Name", "No albums to retrieve :(");
-        public void FetchFriends(ListBox i_DataListBox) =>
-            fetchData(() => r_FacebookLogic.FetchFriends(), i_DataListBox, "Name", "No friends to retrieve :(");
-        public void FetchPosts(ListBox i_DataListBox) =>
-            fetchData(() => r_FacebookLogic.FetchPosts(), i_DataListBox, "UpdateTime", "No posts to retrieve :(");
-        public void FetchLikedPages(ListBox i_DataListBox) =>
-            fetchData(() => r_FacebookLogic.FetchLikedPages(), i_DataListBox, "Name", "No liked pages to retrieve :(");
-        public void FetchEvents(ListBox i_DataListBox) =>
-            fetchData(() => r_FacebookLogic.FetchEvents(), i_DataListBox, "Name", "No events to retrieve :(");
+        public void FetchGroups(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchGroups()), i_DataListBox, "Name", "No groups to retrieve :(");
+        public void FetchAlbums(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchAlbums()), i_DataListBox, "Name", "No albums to retrieve :(");
+        public void FetchFriends(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchFriends()), i_DataListBox, "Name", "No friends to retrieve :(");
+        public void FetchPosts(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchPosts()), i_DataListBox, "UpdateTime", "No posts to retrieve :(");
+        public void FetchLikedPages(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchLikedPages()), i_DataListBox, "Name", "No liked pages to retrieve :(");
+        public void FetchEvents(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchEvents()), i_DataListBox, "Name", "No events to retrieve :(");
+        private void populateListBox<T>(IEnumerable<T> i_Items, ListBox i_DataListBox, string i_DisplayMember, string i_ErrorMessage)
+        {
+            i_DataListBox.Invoke(new Action(() =>
+            {
+                i_DataListBox.DataSource = null;
+                i_DataListBox.Items.Clear();
+                i_DataListBox.DisplayMember = i_DisplayMember;
+
+                int count = 0;
+                foreach (var item in i_Items)
+                {
+                    i_DataListBox.Items.Add(item);
+                    count++;
+                }
+
+                if (count == 0)
+                {
+                    MessageBox.Show(i_ErrorMessage);
+                }
+            }));
+        }
         public void PostStatus(string i_Message, TextBox i_StatusTextBox)
         {
             Thread postThread = new Thread(() =>
