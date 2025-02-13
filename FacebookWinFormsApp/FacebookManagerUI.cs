@@ -39,7 +39,6 @@ namespace BasicFacebookFeatures
                             i_DataListBox.DataSource = null;
                             i_DataListBox.Items.Clear();
                             i_DataListBox.DisplayMember = i_DisplayMember;
-
                             foreach (var item in items)
                             {
                                 i_DataListBox.Items.Add(item);
@@ -60,25 +59,18 @@ namespace BasicFacebookFeatures
 
             fetchThread.Start();
         }
-
         public void FetchGroups(ListBox i_DataListBox) =>
             fetchData(() => r_FacebookLogic.FetchGroups(), i_DataListBox, "Name", "No groups to retrieve :(");
-
         public void FetchAlbums(ListBox i_DataListBox) =>
             fetchData(() => r_FacebookLogic.FetchAlbums(), i_DataListBox, "Name", "No albums to retrieve :(");
-
         public void FetchFriends(ListBox i_DataListBox) =>
             fetchData(() => r_FacebookLogic.FetchFriends(), i_DataListBox, "Name", "No friends to retrieve :(");
-
         public void FetchPosts(ListBox i_DataListBox) =>
             fetchData(() => r_FacebookLogic.FetchPosts(), i_DataListBox, "UpdateTime", "No posts to retrieve :(");
-
         public void FetchLikedPages(ListBox i_DataListBox) =>
             fetchData(() => r_FacebookLogic.FetchLikedPages(), i_DataListBox, "Name", "No liked pages to retrieve :(");
-
         public void FetchEvents(ListBox i_DataListBox) =>
             fetchData(() => r_FacebookLogic.FetchEvents(), i_DataListBox, "Name", "No events to retrieve :(");
-
         public void PostStatus(string i_Message, TextBox i_StatusTextBox)
         {
             Thread postThread = new Thread(() =>

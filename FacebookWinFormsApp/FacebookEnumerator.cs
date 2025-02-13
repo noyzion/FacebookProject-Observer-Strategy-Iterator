@@ -16,21 +16,16 @@ namespace BasicFacebookFeatures
         {
             r_Items = i_Items ?? throw new ArgumentNullException(nameof(i_Items));
         }
-
         public T Current => r_Items[m_CurrentIndex];
-
         object IEnumerator.Current => Current;
-
         public bool MoveNext()
         {
             return ++m_CurrentIndex < r_Items.Count;
         }
-
         public void Reset()
         {
             m_CurrentIndex = -1;
         }
-
         public void Dispose()
         {
             // No resource cleanup needed

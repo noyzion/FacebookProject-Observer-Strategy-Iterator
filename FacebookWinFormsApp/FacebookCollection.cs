@@ -14,12 +14,10 @@ namespace BasicFacebookFeatures
         {
             r_Items = i_Items ?? new List<T>();
         }
-
         public IEnumerator<T> GetEnumerator()
         {
             return new FacebookEnumerator<T>(r_Items);
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
