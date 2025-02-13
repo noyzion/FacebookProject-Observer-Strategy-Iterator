@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using BasicFacebookFeatures.WishlistFeature;
 using BasicFacebookFeatures.WorkoutFeature;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
@@ -36,6 +37,12 @@ namespace BasicFacebookFeatures
             r_WorkoutFacade = r_AppSettings.WorkoutFacade;
             r_WorkoutFacade.WorkoutManager = r_WorkoutFacade.WorkoutManager;
             panelWorkouts.Controls.Add(r_WorkoutFacade.GetWorkoutTable());
+            WishlistProgressTracker progressTracker = new WishlistProgressTracker(progressBarWishlist);
+            WishlistNotifier wishlistNotifier = new WishlistNotifier();
+
+            // Attach observers
+            r_WishlistFacade.WishlistManager.AddObserver(progressTracker);
+            r_WishlistFacade.WishlistManager.AddObserver(wishlistNotifier);
         }
         private void initilizeFacades()
         {
@@ -475,7 +482,7 @@ namespace BasicFacebookFeatures
                 }
 
                 WishListItem newItem = r_WishlistFacade.AddWish(category, itemName, i_PhotoURL);
-
+                r_WishlistFacade.WishlistManager.AddWishListItem(newItem);
                 r_WishlistFacade.UpdateUI(checkedListBoxFood, checkedListBoxPets,
                                         checkedListBoxActivities, checkedListBoxShopping, category, newItem);
                 textBoxName.Clear();
@@ -525,6 +532,7 @@ namespace BasicFacebookFeatures
                 else
                 {
                     wishListItemChecked.Checked = true;
+                    r_WishlistFacade.WishlistManager.MarkItemAsCompleted(itemName);
                 }
             }
         }

@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WishlistFeature\IWishlistObserver.cs" />
+    <Compile Include="WishlistFeature\WIshlistNotifier.cs" />
+    <Compile Include="WishlistFeature\WishlistProgressTracker.cs" />
     <Compile Include="WorkoutFeature\Statistics\AverageWorkoutDurationPerMonthStrategy.cs" />
     <Compile Include="WorkoutFeature\Statistics\CaloriesPerDayStrategy.cs" />
     <Compile Include="WorkoutFeature\Statistics\CaloriesPerMonthStrategy.cs" />

@@ -1,4 +1,5 @@
 ﻿// WishlistLogic.cs
+using BasicFacebookFeatures.WishlistFeature;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace BasicFacebookFeatures
 {
     public class WishlistManager : IWishlistManager
     {
+        private List<IWishlistObserver> m_Observers = new List<IWishlistObserver>();
+        private List<WishListItem> m_WishlistItems = new List<WishListItem>();
         public List<CategoryListWrapper> WishlistValues { get; set; }
         public WishlistManager()
         {
@@ -82,6 +85,39 @@ namespace BasicFacebookFeatures
                 .FirstOrDefault(kvp => kvp.KeyCategory.Equals(i_Category, StringComparison.OrdinalIgnoreCase))
                 ?.ListOfWishlists
                 .FirstOrDefault(item => item.Text.Equals(i_ItemName, StringComparison.OrdinalIgnoreCase));
+        }
+        public void AddObserver(IWishlistObserver i_Observer)
+        {
+            m_Observers.Add(i_Observer);
+        }
+
+        public void RemoveObserver(IWishlistObserver i_Observer)
+        {
+            m_Observers.Remove(i_Observer);
+        }
+
+        private void NotifyObservers()
+        {
+            foreach (var observer in m_Observers)
+            {
+                observer.Update(m_WishlistItems);
+            }
+        }
+
+        public void AddWishListItem(WishListItem i_Item)
+        {
+            m_WishlistItems.Add(i_Item);
+            NotifyObservers();
+        }
+
+        public void MarkItemAsCompleted(string i_ItemName)
+        {
+            var item = m_WishlistItems.FirstOrDefault(i => i.Text == i_ItemName);
+            if (item != null)
+            {
+                item.Checked = true;
+                NotifyObservers();
+            }
         }
     }
 }

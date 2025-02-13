@@ -68,6 +68,7 @@ namespace BasicFacebookFeatures
             this.panelWorkouts = new System.Windows.Forms.Panel();
             this.buttonAddWorkout = new System.Windows.Forms.Button();
             this.tabWishlist = new System.Windows.Forms.TabPage();
+            this.progressBarWishlist = new System.Windows.Forms.ProgressBar();
             this.buttonDeleteItem = new System.Windows.Forms.Button();
             this.labelNameOfWish = new System.Windows.Forms.Label();
             this.labelCategory = new System.Windows.Forms.Label();
@@ -618,6 +619,7 @@ namespace BasicFacebookFeatures
             // 
             // tabWishlist
             // 
+            this.tabWishlist.Controls.Add(this.progressBarWishlist);
             this.tabWishlist.Controls.Add(this.buttonDeleteItem);
             this.tabWishlist.Controls.Add(this.labelNameOfWish);
             this.tabWishlist.Controls.Add(this.labelCategory);
@@ -646,6 +648,13 @@ namespace BasicFacebookFeatures
             this.tabWishlist.TabIndex = 1;
             this.tabWishlist.Text = "Wishlist";
             this.tabWishlist.UseVisualStyleBackColor = true;
+            // 
+            // progressBarWishlist
+            // 
+            this.progressBarWishlist.Location = new System.Drawing.Point(364, 121);
+            this.progressBarWishlist.Name = "progressBarWishlist";
+            this.progressBarWishlist.Size = new System.Drawing.Size(542, 23);
+            this.progressBarWishlist.TabIndex = 26;
             // 
             // buttonDeleteItem
             // 
@@ -989,6 +998,7 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Button buttonShareWorkout;
         private System.Windows.Forms.Button buttonInviteFriends;
         private System.Windows.Forms.BindingSource albumBindingSource;
+        private System.Windows.Forms.ProgressBar progressBarWishlist;
     }
 }
 
