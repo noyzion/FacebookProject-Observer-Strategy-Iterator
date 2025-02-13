@@ -5,11 +5,11 @@ using System;
 
 public class CaloriesPerMonthStrategy : IWorkoutStatisticStrategy
 {
-    public Dictionary<int, int> Calculate(DataGridView workoutTable)
+    public Dictionary<int, int> Calculate(DataGridView i_WorkoutTable)
     {
         Dictionary<int, int> caloriesPerMonth = new Dictionary<int, int>();
 
-        foreach (DataGridViewRow row in workoutTable.Rows)
+        foreach (DataGridViewRow row in i_WorkoutTable.Rows)
         {
             if (row.Cells["Date"]?.Value != null && row.Cells["Calories"]?.Value != null)
             {

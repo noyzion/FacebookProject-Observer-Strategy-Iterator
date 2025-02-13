@@ -8,7 +8,7 @@ namespace BasicFacebookFeatures
     public partial class StatisicsForm : Form
     {
         private readonly DataGridView r_WorkoutTable;
-        private IWorkoutStatisticStrategy currentStrategy;
+        private IWorkoutStatisticStrategy m_CurrentStrategy;
 
         public StatisicsForm(DataGridView i_WorkoutTable)
         {
@@ -21,14 +21,21 @@ namespace BasicFacebookFeatures
         }
         private void generateWorkoutStatistics()
         {
-            Dictionary<int, int> data = currentStrategy.Calculate(r_WorkoutTable);
+            Dictionary<int, int> data = m_CurrentStrategy.Calculate(r_WorkoutTable);
+
             displayChart(data);
         }
 
         private void displayChart(Dictionary<int, int> i_Data)
         {
-            statisticsChart.Series.Clear();
-            Series series = createSeries();
+            if (statisticsChart.Series.Count == 0)
+            {
+                statisticsChart.Series.Add("Data");
+            }
+
+            statisticsChart.Series[0].Points.Clear();
+            statisticsChart.Series[0].BorderWidth = 3;
+            statisticsChart.Series[0].IsValueShownAsLabel = true;
 
             Dictionary<int, string> xAxisLabels = generateXAxisLabels(i_Data);
 
@@ -39,10 +46,9 @@ namespace BasicFacebookFeatures
                     AxisLabel = xAxisLabels.ContainsKey(entry.Key) ? xAxisLabels[entry.Key] : entry.Key.ToString(),
                     ToolTip = $"Value: {entry.Value}"
                 };
-                series.Points.Add(point);
+                statisticsChart.Series[0].Points.Add(point);
             }
 
-            statisticsChart.Series.Add(series);
             formatChart();
             setChartColor();
         }
@@ -60,7 +66,7 @@ namespace BasicFacebookFeatures
         {
             Dictionary<int, string> labels = new Dictionary<int, string>();
 
-            if (currentStrategy is CaloriesPerMonthStrategy || currentStrategy is WorkoutCountPerMonthStrategy)
+            if (m_CurrentStrategy is CaloriesPerMonthStrategy || m_CurrentStrategy is WorkoutCountPerMonthStrategy)
             {
                 string[] monthNames = { "", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
                 foreach (var entry in i_Data)
@@ -68,7 +74,7 @@ namespace BasicFacebookFeatures
                     labels[entry.Key] = monthNames[entry.Key];
                 }
             }
-            else if (currentStrategy is CaloriesPerDayStrategy)
+            else if (m_CurrentStrategy is CaloriesPerDayStrategy)
             {
                 foreach (var entry in i_Data)
                 {
@@ -76,7 +82,7 @@ namespace BasicFacebookFeatures
                     labels[entry.Key] = date.ToString("dddd");
                 }
             }
-            else if (currentStrategy is WorkoutFrequencyPerWeekStrategy)
+            else if (m_CurrentStrategy is WorkoutFrequencyPerWeekStrategy)
             {
                 foreach (var entry in i_Data)
                 {
@@ -106,23 +112,23 @@ namespace BasicFacebookFeatures
         }
         private void setChartColor()
         {
-            if (currentStrategy is CaloriesPerMonthStrategy)
+            if (m_CurrentStrategy is CaloriesPerMonthStrategy)
             {
                 statisticsChart.Series[0].Color = System.Drawing.Color.Green;
             }
-            else if (currentStrategy is WorkoutCountPerMonthStrategy)
+            else if (m_CurrentStrategy is WorkoutCountPerMonthStrategy)
             {
                 statisticsChart.Series[0].Color = System.Drawing.Color.Blue;
             }
-            else if (currentStrategy is CaloriesPerDayStrategy)
+            else if (m_CurrentStrategy is CaloriesPerDayStrategy)
             {
                 statisticsChart.Series[0].Color = System.Drawing.Color.Orange;
             }
-            else if (currentStrategy is WorkoutFrequencyPerWeekStrategy)
+            else if (m_CurrentStrategy is WorkoutFrequencyPerWeekStrategy)
             {
                 statisticsChart.Series[0].Color = System.Drawing.Color.Purple;
             }
-            else if (currentStrategy is AverageWorkoutDurationPerMonthStrategy)
+            else if (m_CurrentStrategy is AverageWorkoutDurationPerMonthStrategy)
             {
                 statisticsChart.Series[0].Color = System.Drawing.Color.DarkCyan;
             }
@@ -135,35 +141,35 @@ namespace BasicFacebookFeatures
             {
                 case "Calories Per Month":
                     {
-                        currentStrategy = new CaloriesPerMonthStrategy();
+                        m_CurrentStrategy = new CaloriesPerMonthStrategy();
                         labelChartTitle.Text = "How Many Calories\r\n Do You Burn Each Month?";
                         this.Text = "Statistics - Calories Per Month";
                         break;
                     }
                 case "Workout Count Per Month":
                     {
-                        currentStrategy = new WorkoutCountPerMonthStrategy();
+                        m_CurrentStrategy = new WorkoutCountPerMonthStrategy();
                         labelChartTitle.Text = "How Many Times\r\n Do You Workout Each Month?";
                         this.Text = "Statistics - Workouts Per Month";
                         break;
                     }
                 case "Calories Per Day":
                     {
-                        currentStrategy = new CaloriesPerDayStrategy();
+                        m_CurrentStrategy = new CaloriesPerDayStrategy();
                         labelChartTitle.Text = "How Many Calories\r\n Do You Burn Each Day?";
                         this.Text = "Statistics - Calories Per Day";
                         break;
                     }
                 case "Workout Frequency Per Week":
                     {
-                        currentStrategy = new WorkoutFrequencyPerWeekStrategy();
+                        m_CurrentStrategy = new WorkoutFrequencyPerWeekStrategy();
                         labelChartTitle.Text = "How Often\r\n Do You Workout Each Week?";
                         this.Text = "Statistics - Workouts Per Week";
                         break;
                     }
                 case "Average Workout Duration Per Month":
                     {
-                        currentStrategy = new AverageWorkoutDurationPerMonthStrategy();
+                        m_CurrentStrategy = new AverageWorkoutDurationPerMonthStrategy();
                         labelChartTitle.Text = "What is Your\r\n Average Workout Duration?";
                         this.Text = "Statistics - Avg Duration Per Month";
                         break;
