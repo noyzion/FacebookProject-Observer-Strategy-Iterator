@@ -121,7 +121,7 @@
       <DependentUpon>InviteFriendsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WishlistFeature\WishlistFacade.cs" />
-    <Compile Include="WishlistFeature\WishListItem.cs" />
+    <Compile Include="WishlistFeature\WishlistItem.cs" />
     <Compile Include="WishlistFeature\WishlistManagerUI.cs" />
     <Compile Include="WorkoutFeature\WorkoutFacade.cs" />
     <Compile Include="WorkoutFeature\WorkoutManager.cs" />

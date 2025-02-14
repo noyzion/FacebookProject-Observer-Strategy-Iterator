@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace BasicFacebookFeatures
 {
-    public class WishListItem
+    public class WishlistItem
     {
         public string Text { get; set; }
         public string PhotoUrl { get; set; }
         public bool Checked { get; set; }
-        public WishListItem() { }
-        public WishListItem(string i_Text, string i_PhotoUrl)
+        public WishlistItem() { }
+        public WishlistItem(string i_Text, string i_PhotoUrl)
         {
             Text = i_Text;
             PhotoUrl = i_PhotoUrl;
         }
-        public WishListItem(string i_Text)
+        public WishlistItem(string i_Text)
         {
             Text = i_Text;
             PhotoUrl = null;
@@ -29,7 +29,7 @@ namespace BasicFacebookFeatures
                 return false;
             }
 
-            WishListItem other = (WishListItem)i_Obj;
+            WishlistItem other = (WishlistItem)i_Obj;
 
             return Text == other.Text;
         }

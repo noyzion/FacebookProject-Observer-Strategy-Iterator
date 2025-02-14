@@ -6,9 +6,12 @@ namespace BasicFacebookFeatures
 {
     public interface IWishlistManager
     {
-        WishListItem AddWishToWishlistValues(string i_Category, string i_ItemName, string i_PhotoUrl);
-        void RemoveWishFromWishlistValues(string i_Category, WishListItem i_ItemToRemove);
-        List<WishListItem> GetItemsByCategory(string i_Category);
-        WishListItem FindWishListItemByName(string i_Category, string i_ItemName);
+        WishlistItem AddWishToWishlistValues(string i_Category, string i_ItemName, string i_PhotoUrl);
+        void RemoveWishFromWishlistValues(string i_Category, WishlistItem i_ItemToRemove);
+        List<WishlistItem> GetItemsByCategory(string i_Category);
+        WishlistItem FindWishListItemByName(string i_Category, string i_ItemName);
+        void AddObserver(IWishlistObserver i_Observer);
+        void RemoveObserver(IWishlistObserver i_Observer);
+        void MarkItemAsCompleted(EWishlistCategories i_Category, string i_ItemName);
     }
 }

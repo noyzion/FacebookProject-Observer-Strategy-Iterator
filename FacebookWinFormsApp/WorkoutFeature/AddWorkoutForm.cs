@@ -41,7 +41,6 @@ namespace BasicFacebookFeatures
         {
             buttonAddWorkout.Enabled = m_DurationChanged && m_CaloriesChanged && m_DateTimeChanged && m_CategoryChanged;
         }
-
         private void buttonAddWorkout_Click(object sender, EventArgs e)
         {
             try

@@ -24,6 +24,7 @@ namespace BasicFacebookFeatures
                     {
                         durationPerMonth[month] = new List<int>();
                     }
+
                     durationPerMonth[month].Add(duration);
                 }
             }

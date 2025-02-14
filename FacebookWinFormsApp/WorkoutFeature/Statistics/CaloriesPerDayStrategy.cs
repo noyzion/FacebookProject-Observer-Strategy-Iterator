@@ -28,6 +28,7 @@ namespace BasicFacebookFeatures
                     }
                 }
             }
+
             return caloriesPerDay;
         }
     }

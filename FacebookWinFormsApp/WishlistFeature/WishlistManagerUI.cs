@@ -21,7 +21,7 @@ namespace BasicFacebookFeatures
 
         public void UpdateCheckedListBox(CheckedListBox i_FoodListBox, CheckedListBox i_PetsListBox,
                                          CheckedListBox i_ActivitiesListBox, CheckedListBox i_ShoppingListBox,
-                                         string i_Category, WishListItem i_WishlistItem)
+                                         string i_Category, WishlistItem i_WishlistItem)
         {
             switch (i_Category)
             {
@@ -41,7 +41,6 @@ namespace BasicFacebookFeatures
                     throw new ArgumentException("Invalid category.");
             }
         }
-
         public void ResetWishlistUI(CheckedListBox i_FoodListBox, CheckedListBox i_PetsListBox,
                                      CheckedListBox i_ActivitiesListBox, CheckedListBox i_ShoppingListBox)
         {
@@ -50,7 +49,7 @@ namespace BasicFacebookFeatures
             i_ActivitiesListBox.Items.Clear();
             i_ShoppingListBox.Items.Clear();
         }
-        public void HighlightItemInList(WishListItem i_Item, PictureBox i_PictureBox, Button i_DeleteButton)
+        public void HighlightItemInList(WishlistItem i_Item, PictureBox i_PictureBox, Button i_DeleteButton)
         {
             if (i_Item != null)
             {
@@ -113,7 +112,7 @@ namespace BasicFacebookFeatures
             categoryPanel.Controls.Add(categoryLabel);
             if (i_CheckedListBox.Items.Count > 0)
             {
-                foreach (WishListItem item in i_CheckedListBox.Items)
+                foreach (WishlistItem item in i_CheckedListBox.Items)
                 {
                     Panel itemPanel = createItemPanel(item);
 
@@ -152,7 +151,7 @@ namespace BasicFacebookFeatures
                 Margin = new Padding(k_Padding)
             };
         }
-        private Panel createItemPanel(WishListItem i_WishlistItem)
+        private Panel createItemPanel(WishlistItem i_WishlistItem)
         {
             Panel itemPanel = new Panel
             {
@@ -168,7 +167,7 @@ namespace BasicFacebookFeatures
 
             return itemPanel;
         }
-        private Label createItemLabel(WishListItem i_WishlistItem)
+        private Label createItemLabel(WishlistItem i_WishlistItem)
         {
             return new Label
             {
@@ -178,7 +177,7 @@ namespace BasicFacebookFeatures
                 Font = new Font("Arial", 10, FontStyle.Regular)
             };
         }
-        private PictureBox createItemPictureBox(WishListItem i_WishlistItem)
+        private PictureBox createItemPictureBox(WishlistItem i_WishlistItem)
         {
             PictureBox pictureBoxItem = new PictureBox
             {

@@ -408,7 +408,7 @@ namespace BasicFacebookFeatures
                 }
             }
         }
-        private void checkItemInList(CheckedListBox i_CheckedListBox, WishListItem i_CheckedItem)
+        private void checkItemInList(CheckedListBox i_CheckedListBox, WishlistItem i_CheckedItem)
         {
             if (i_CheckedItem.Checked)
             {
@@ -437,10 +437,10 @@ namespace BasicFacebookFeatures
         }
         private void populateCheckBoxListOfWishlist(EWishlistCategories i_Category)
         {
-            List<WishListItem> items = r_AppSettings.WishlistFacade.
-                                        GetItemsByCategory(i_Category.ToString()) ?? new List<WishListItem>();
+            List<WishlistItem> items = r_AppSettings.WishlistFacade.
+                                        GetItemsByCategory(i_Category.ToString()) ?? new List<WishlistItem>();
 
-            foreach (WishListItem item in items)
+            foreach (WishlistItem item in items)
             {
                 switch (i_Category)
                 {
@@ -478,7 +478,7 @@ namespace BasicFacebookFeatures
                     return;
                 }
 
-                WishListItem newItem = r_WishlistFacade.AddWish(category, itemName, i_PhotoURL);
+                WishlistItem newItem = r_WishlistFacade.AddWish(category, itemName, i_PhotoURL);
                 r_WishlistFacade.UpdateUI(checkedListBoxFood, checkedListBoxPets,
                                         checkedListBoxActivities, checkedListBoxShopping, category, newItem);
                 textBoxName.Clear();
@@ -517,7 +517,7 @@ namespace BasicFacebookFeatures
         private void checkedListBox_ItemCheck(CheckedListBox i_List, PictureBox i_PictureBox, EWishlistCategories i_Category)
         {
             string itemName = i_List.Text;
-            WishListItem wishListItemChecked = findWishListItemByName(i_Category, i_PictureBox, itemName);
+            WishlistItem wishListItemChecked = findWishListItemByName(i_Category, i_PictureBox, itemName);
 
             if (wishListItemChecked != null)
             {
@@ -534,7 +534,7 @@ namespace BasicFacebookFeatures
         }
         private void checkedListBoxFood_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WishListItem wishListItemOfSelectedItem = r_WishlistFacade.FindWishListItemByName(EWishlistCategories.Food.ToString(), checkedListBoxFood.Text);
+            WishlistItem wishListItemOfSelectedItem = r_WishlistFacade.FindWishListItemByName(EWishlistCategories.Food.ToString(), checkedListBoxFood.Text);
 
             if (wishListItemOfSelectedItem != null)
             {
@@ -544,7 +544,7 @@ namespace BasicFacebookFeatures
         }
         private void checkedListBoxShopping_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WishListItem wishListItemOfSelectedItem = r_WishlistFacade.FindWishListItemByName(EWishlistCategories.Shopping.ToString(),
+            WishlistItem wishListItemOfSelectedItem = r_WishlistFacade.FindWishListItemByName(EWishlistCategories.Shopping.ToString(),
                                                                                               checkedListBoxShopping.Text);
 
             if (wishListItemOfSelectedItem != null)
@@ -555,7 +555,7 @@ namespace BasicFacebookFeatures
         }
         private void checkedListBoxPets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WishListItem wishListItemOfSelectedItem = r_WishlistFacade.FindWishListItemByName(EWishlistCategories.Pets.ToString(), checkedListBoxPets.Text);
+            WishlistItem wishListItemOfSelectedItem = r_WishlistFacade.FindWishListItemByName(EWishlistCategories.Pets.ToString(), checkedListBoxPets.Text);
 
             if (wishListItemOfSelectedItem != null)
             {
@@ -579,7 +579,7 @@ namespace BasicFacebookFeatures
         }
         private void checkedListBoxActivities_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WishListItem wishListItemOfSelectedItem = findWishListItemByName(EWishlistCategories.Activities,
+            WishlistItem wishListItemOfSelectedItem = findWishListItemByName(EWishlistCategories.Activities,
                                                                             pictureBoxActivities, checkedListBoxActivities.Text);
 
             r_WishlistFacade.LoadImageForPictureBoxInList(wishListItemOfSelectedItem, pictureBoxActivities);
@@ -610,7 +610,7 @@ namespace BasicFacebookFeatures
 
             if (i_CheckedListBox.SelectedIndex >= 0)
             {
-                WishListItem selectedItem = (WishListItem)i_CheckedListBox.Items[i_CheckedListBox.SelectedIndex];
+                WishlistItem selectedItem = (WishlistItem)i_CheckedListBox.Items[i_CheckedListBox.SelectedIndex];
 
                 i_CheckedListBox.Items.RemoveAt(i_CheckedListBox.SelectedIndex);
                 i_PictureBox.Image = null;
@@ -620,7 +620,7 @@ namespace BasicFacebookFeatures
 
             return deleted;
         }
-        private WishListItem findWishListItemByName(EWishlistCategories i_Category,
+        private WishlistItem findWishListItemByName(EWishlistCategories i_Category,
                                                     PictureBox i_PictureBox, string i_ItemName)
         {
             return r_WishlistFacade.FindAndHighlightItem(i_Category.ToString(), i_ItemName, i_PictureBox, buttonDeleteItem);

@@ -29,6 +29,7 @@ namespace BasicFacebookFeatures
                     }
                 }
             }
+
             return caloriesPerMonth;
         }
     }

@@ -25,7 +25,6 @@ namespace BasicFacebookFeatures
 
             displayChart(data);
         }
-
         private void displayChart(Dictionary<int, int> i_Data)
         {
             if (statisticsChart.Series.Count == 0)
@@ -36,7 +35,6 @@ namespace BasicFacebookFeatures
             statisticsChart.Series[0].Points.Clear();
             statisticsChart.Series[0].BorderWidth = 3;
             statisticsChart.Series[0].IsValueShownAsLabel = true;
-
             Dictionary<int, string> xAxisLabels = generateXAxisLabels(i_Data);
 
             foreach (var entry in i_Data)
@@ -46,22 +44,13 @@ namespace BasicFacebookFeatures
                     AxisLabel = xAxisLabels.ContainsKey(entry.Key) ? xAxisLabels[entry.Key] : entry.Key.ToString(),
                     ToolTip = $"Value: {entry.Value}"
                 };
+
                 statisticsChart.Series[0].Points.Add(point);
             }
 
             formatChart();
             setChartColor();
         }
-
-        private Series createSeries()
-        {
-            return new Series("Data")
-            {
-                BorderWidth = 3,
-                IsValueShownAsLabel = true
-            };
-        }
-
         private Dictionary<int, string> generateXAxisLabels(Dictionary<int, int> i_Data)
         {
             Dictionary<int, string> labels = new Dictionary<int, string>();
@@ -69,6 +58,7 @@ namespace BasicFacebookFeatures
             if (m_CurrentStrategy is CaloriesPerMonthStrategy || m_CurrentStrategy is WorkoutCountPerMonthStrategy)
             {
                 string[] monthNames = { "", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+
                 foreach (var entry in i_Data)
                 {
                     labels[entry.Key] = monthNames[entry.Key];
@@ -79,6 +69,7 @@ namespace BasicFacebookFeatures
                 foreach (var entry in i_Data)
                 {
                     DateTime date = DateTime.Today.AddDays(entry.Key - DateTime.Today.Day);
+
                     labels[entry.Key] = date.ToString("dddd");
                 }
             }
