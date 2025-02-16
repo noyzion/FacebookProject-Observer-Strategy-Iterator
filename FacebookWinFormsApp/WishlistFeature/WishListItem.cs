@@ -38,4 +38,4 @@ namespace BasicFacebookFeatures
             return Text.GetHashCode();
         }
     }
-{
+}
