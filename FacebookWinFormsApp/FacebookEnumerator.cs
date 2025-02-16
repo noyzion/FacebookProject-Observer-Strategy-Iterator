@@ -28,7 +28,7 @@ namespace BasicFacebookFeatures
         }
         public void Dispose()
         {
-            // No resource cleanup needed
+            m_CurrentIndex = -1;
         }
     }
 }

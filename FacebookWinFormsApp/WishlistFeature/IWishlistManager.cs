@@ -12,6 +12,6 @@ namespace BasicFacebookFeatures
         WishlistItem FindWishListItemByName(string i_Category, string i_ItemName);
         void AddObserver(IWishlistObserver i_Observer);
         void RemoveObserver(IWishlistObserver i_Observer);
-        void MarkItemAsCompleted(EWishlistCategories i_Category, string i_ItemName);
+        void MarkItem(EWishlistCategories i_Category, string i_ItemName, bool i_Checked);
     }
 }

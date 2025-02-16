@@ -36,12 +36,18 @@ namespace BasicFacebookFeatures
                 }
             }
         }
-        public void FetchGroups(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchGroups()), i_DataListBox, "Name", "No groups to retrieve :(");
-        public void FetchAlbums(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchAlbums()), i_DataListBox, "Name", "No albums to retrieve :(");
-        public void FetchFriends(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchFriends()), i_DataListBox, "Name", "No friends to retrieve :(");
-        public void FetchPosts(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchPosts()), i_DataListBox, "UpdateTime", "No posts to retrieve :(");
-        public void FetchLikedPages(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchLikedPages()), i_DataListBox, "Name", "No liked pages to retrieve :(");
-        public void FetchEvents(ListBox i_DataListBox) => populateListBox(fetchData(() => r_FacebookLogic.FetchEvents()), i_DataListBox, "Name", "No events to retrieve :(");
+        public void FetchGroups(ListBox i_DataListBox) => populateListBox(fetchData(() => 
+                                                        r_FacebookLogic.FetchGroups()), i_DataListBox, "Name", "No groups to retrieve :(");
+        public void FetchAlbums(ListBox i_DataListBox) => populateListBox(fetchData(() =>
+                                                          r_FacebookLogic.FetchAlbums()), i_DataListBox, "Name", "No albums to retrieve :(");
+        public void FetchFriends(ListBox i_DataListBox) => populateListBox(fetchData(() =>
+                                                           r_FacebookLogic.FetchFriends()), i_DataListBox, "Name", "No friends to retrieve :(");
+        public void FetchPosts(ListBox i_DataListBox) => populateListBox(fetchData(() => 
+                                                         r_FacebookLogic.FetchPosts()), i_DataListBox, "UpdateTime", "No posts to retrieve :(");
+        public void FetchLikedPages(ListBox i_DataListBox) => populateListBox(fetchData(() => 
+                                                              r_FacebookLogic.FetchLikedPages()), i_DataListBox, "Name", "No liked pages to retrieve :(");
+        public void FetchEvents(ListBox i_DataListBox) => populateListBox(fetchData(() => 
+                                                           r_FacebookLogic.FetchEvents()), i_DataListBox, "Name", "No events to retrieve :(");
         private void populateListBox<T>(IEnumerable<T> i_Items, ListBox i_DataListBox, string i_DisplayMember, string i_ErrorMessage)
         {
             i_DataListBox.Invoke(new Action(() =>
@@ -530,7 +536,7 @@ namespace BasicFacebookFeatures
                     if (!string.Equals(i_Album.Name, albumNameTextBox.Text))
                     {
                         i_Album.Name = albumNameTextBox.Text;
-                        RefreshListBox(i_DataListBox, i_Album);
+                        refreshListBox(i_DataListBox, i_Album);
                     }
                 };
                 Label countLabel = new Label
@@ -568,7 +574,7 @@ namespace BasicFacebookFeatures
 
                 openAlbumButton.Click += (sender, e) =>
                 {
-                    Thread openAlbumThread = new Thread(() => OpenAlbumPhotos(i_Album, i_PictureBoxProfile));
+                    Thread openAlbumThread = new Thread(() => openAlbumPhotos(i_Album, i_PictureBoxProfile));
 
                     openAlbumThread.SetApartmentState(ApartmentState.STA);
                     openAlbumThread.Start();
@@ -598,7 +604,7 @@ namespace BasicFacebookFeatures
                 MessageBox.Show($"Error displaying album details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void RefreshListBox(ListBox i_ListBox, Album i_Album)
+        private void refreshListBox(ListBox i_ListBox, Album i_Album)
         {
             int index = i_ListBox.Items.IndexOf(i_Album);
 
@@ -607,7 +613,7 @@ namespace BasicFacebookFeatures
                 i_ListBox.Items[index] = i_Album;
             }
         }
-        private void OpenAlbumPhotos(Album i_Album, PictureBox i_PictureBoxProfile)
+        private void openAlbumPhotos(Album i_Album, PictureBox i_PictureBoxProfile)
         {
             Form albumForm = new Form
             {

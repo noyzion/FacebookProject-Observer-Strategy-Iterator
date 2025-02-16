@@ -64,7 +64,7 @@ namespace BasicFacebookFeatures
                 pictureBox.BorderStyle = BorderStyle.FixedSingle;
                 pictureBox.Width += k_HoverEffect;
                 pictureBox.Height += k_HoverEffect;
-                pictureBox.BackColor = System.Drawing.Color.LightGray;
+                pictureBox.BackColor = Color.LightGray;
             }
         }
         private void pictureBox_MouseLeave(object sender, EventArgs e)
@@ -106,9 +106,10 @@ namespace BasicFacebookFeatures
                 m_LoginResult = FacebookService.Connect(r_AppSettings.LastAccessToken);
                 m_FacebookFacade = new FacebookFacade(m_LoginResult);
                 PopulateUIFromFacebookData();
+                progressBarWishlist.Value = 0;
+                r_WishlistFacade.WishlistManager.NotifyObservers();
             }
         }
-
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             if (m_LoginResult == null || string.IsNullOrEmpty(m_LoginResult.AccessToken))
@@ -362,7 +363,6 @@ namespace BasicFacebookFeatures
             try
             {
                 string profilePictureUrl = m_LoginResult.LoggedInUser.PictureLargeURL;
-
                 PictureBox profilePictureBox = new PictureBox
                 {
                     SizeMode = PictureBoxSizeMode.StretchImage,
@@ -524,11 +524,12 @@ namespace BasicFacebookFeatures
                 if (wishListItemChecked.Checked)
                 {
                     wishListItemChecked.Checked = false;
+                    r_WishlistFacade.WishlistManager.MarkItem(i_Category, itemName, false);
                 }
                 else
                 {
                     wishListItemChecked.Checked = true;
-                    r_WishlistFacade.WishlistManager.MarkItemAsCompleted(i_Category, itemName);
+                    r_WishlistFacade.WishlistManager.MarkItem(i_Category, itemName, true);
                 }
             }
         }
@@ -670,11 +671,6 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void panelStatus_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

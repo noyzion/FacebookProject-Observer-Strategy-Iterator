@@ -233,7 +233,6 @@ namespace BasicFacebookFeatures
             this.panelStatus.Name = "panelStatus";
             this.panelStatus.Size = new System.Drawing.Size(797, 96);
             this.panelStatus.TabIndex = 84;
-            this.panelStatus.Paint += new System.Windows.Forms.PaintEventHandler(this.panelStatus_Paint);
             // 
             // labelAddStatus
             // 

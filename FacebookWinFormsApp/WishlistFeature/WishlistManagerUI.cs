@@ -79,7 +79,7 @@ namespace BasicFacebookFeatures
             }
         }
         public void DisplayCombinedWishlistPopup(CheckedListBox i_FoodListBox, CheckedListBox i_ActivitiesListBox,
-                                              CheckedListBox i_PetsListBox, CheckedListBox i_ShoppingListBox)
+                                                 CheckedListBox i_PetsListBox, CheckedListBox i_ShoppingListBox)
         {
             Form popupForm = new Form
             {

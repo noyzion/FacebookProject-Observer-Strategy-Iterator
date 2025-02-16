@@ -181,7 +181,8 @@ namespace BasicFacebookFeatures
             };
             PictureBox friendPicture = new PictureBox
             {
-                Image = i_Friend.PictureNormalURL != null ? Image.FromStream(new System.IO.MemoryStream(new System.Net.WebClient().DownloadData(i_Friend.PictureNormalURL))) : null,
+                Image = i_Friend.PictureNormalURL != null ? Image.FromStream(new System.IO.MemoryStream(new System.Net.WebClient().
+                                                                             DownloadData(i_Friend.PictureNormalURL))) : null,
                 Size = new Size(60, 60),
                 SizeMode = PictureBoxSizeMode.Zoom,
                 Margin = new Padding(5),
@@ -189,7 +190,7 @@ namespace BasicFacebookFeatures
                 BackColor = Color.LightGray
             };
 
-            friendPicture.Image = RoundImage(friendPicture.Image);
+            friendPicture.Image = roundImage(friendPicture.Image);
             Label friendName = new Label
             {
                 Text = i_Friend.Name,
@@ -210,7 +211,7 @@ namespace BasicFacebookFeatures
 
             return friendPanel;
         }
-        private Image RoundImage(Image i_Image)
+        private Image roundImage(Image i_Image)
         {
             int width = i_Image.Width;
             int height = i_Image.Height;

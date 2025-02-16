@@ -48,8 +48,10 @@ namespace BasicFacebookFeatures
             {
                 newItem = new WishlistItem(i_Text, i_PhotoUrl);
             }
-
-            newItem = new WishlistItem(i_Text);
+            else
+            {
+                newItem = new WishlistItem(i_Text);
+            }
 
             return newItem;
         }
@@ -96,14 +98,14 @@ namespace BasicFacebookFeatures
         {
             r_Observers.Remove(i_Observer);
         }
-        private void NotifyObservers()
+        public void NotifyObservers()
         {
             foreach (var observer in r_Observers)
             {
                 observer.Update(WishlistValues);
             }
         }
-        public void MarkItemAsCompleted(EWishlistCategories i_Category, string i_ItemName)
+        public void MarkItem(EWishlistCategories i_Category, string i_ItemName, bool i_Checked)
         {
             CategoryListWrapper foundCategory = findCategory(i_Category);
 
@@ -113,9 +115,11 @@ namespace BasicFacebookFeatures
 
                 if (foundItem != null)
                 {
-                    markItemAsChecked(foundItem);
+                    markItemAndNotify(foundItem, i_Checked);
                 }
             }
+
+            NotifyObservers();
         }
         private CategoryListWrapper findCategory(EWishlistCategories i_Category)
         {
@@ -143,9 +147,9 @@ namespace BasicFacebookFeatures
 
             return null;
         }
-        private void markItemAsChecked(WishlistItem i_Item)
+        private void markItemAndNotify(WishlistItem i_Item, bool i_Checked)
         {
-            i_Item.Checked = true;
+            i_Item.Checked = i_Checked;
             NotifyObservers();
         }
     }
