@@ -27,9 +27,9 @@ namespace BasicFacebookFeatures
         }
         public void UpdateUI(CheckedListBox i_FoodListBox, CheckedListBox i_PetsListBox,
                              CheckedListBox i_ActivitiesListBox, CheckedListBox i_ShoppingListBox,
-                             string i_Category, WishlistItem i_WishListItem)
+                             string i_Category, WishlistItem i_WishlistItem)
         {
-            r_WishlistUIManager.UpdateCheckedListBox(i_FoodListBox, i_PetsListBox, i_ActivitiesListBox, i_ShoppingListBox, i_Category, i_WishListItem);
+            r_WishlistUIManager.UpdateCheckedListBox(i_FoodListBox, i_PetsListBox, i_ActivitiesListBox, i_ShoppingListBox, i_Category, i_WishlistItem);
         }
         public void ResetUI(CheckedListBox i_FoodListBox, CheckedListBox i_PetsListBox,
                             CheckedListBox i_ActivitiesListBox, CheckedListBox i_ShoppingListBox)
@@ -40,13 +40,13 @@ namespace BasicFacebookFeatures
         {
             return WishlistManager.GetItemsByCategory(i_Category).FirstOrDefault(item => item.Text == i_ItemName);
         }
-        public void LoadImageForPictureBoxInList(WishlistItem i_WishListItem, PictureBox i_PictureBox)
+        public void LoadImageForPictureBoxInList(WishlistItem i_WishlistItem, PictureBox i_PictureBox)
         {
-            if (!string.IsNullOrEmpty(i_WishListItem?.PhotoUrl))
+            if (!string.IsNullOrEmpty(i_WishlistItem?.PhotoUrl))
             {
                 try
                 {
-                    i_PictureBox.Image = Image.FromFile(i_WishListItem.PhotoUrl);
+                    i_PictureBox.Image = Image.FromFile(i_WishlistItem.PhotoUrl);
                     i_PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
                 catch (Exception ex)
